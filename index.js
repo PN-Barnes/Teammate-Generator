@@ -67,31 +67,46 @@ const addEmployee = [
     {
         type: 'confirm',
         message: 'would you like to add more team members?',
-        name:'addEmployee',
+        name:'confirm',
         default: false
     }
 ]
-async function RunGenerator() {
+async function runGenerator() {
     let mainQuestions = await inquirer.prompt(questions)
 
     let roleChoice = await decideRole(mainQuestions);
 
     let roleAnswers = await inquirer.prompt(roleChoice)
+    console.log(roleAnswers)
 
-    let EmployeeInfo = await {mainQuestions, roleAnswers}
-    
+    let EmployeeInfo = await {...mainQuestions, ...roleAnswers}
+    console.log(EmployeeInfo)
     let createEmployee = await generateEmployee(EmployeeInfo)
 
     teamMembers.push(createEmployee)
-    console.log(teamMembers)
 
     let addMember = await inquirer.prompt(addEmployee);
 
     generateMore(addMember.confirm)
 }
 
+
+function decideRole(Employee) {
+    let role = Employee.role
+    switch(role) {
+        case 'Manager':
+        return officeNumber;
+
+        case 'Engineer':
+        return gitHub;
+
+        case 'Intern':
+        return schoolName;
+    }
+}
+            
 function generateEmployee(info) {
-    let name = info.name;
+let name = info.name;
     let id = info.id;
     let email = info.email;
     let role = info.role;
@@ -102,29 +117,17 @@ function generateEmployee(info) {
         case 'Engineer':
             return new Engingeer(name, id, email, info.gitHub);
         case 'Intern':
-            return new Intern(name, id, email, info.school)
+            return new Intern(name, id, email, info.school);
+        default: return 'Error'
     }
 }
-
-function decideRole(Employee) {
-    let role = Employee.role
-    switch(role) {
-        case 'Manager':
-            return officeNumber;
-        case 'Engineer':
-            return gitHub;
-        case 'Intern':
-            return schoolName;
-    }
-}
-
 function generateMore(confirm){
     if (confirm) {
-        return runGenerator
-    }
-    else {
+        return runGenerator()
+    }  else {
         console.log('You have created your team!')
     }
-
+                
 }
+            
 runGenerator();
