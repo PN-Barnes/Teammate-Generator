@@ -1,4 +1,4 @@
-const Engingeer = require("./lib/Engineer");
+const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 `
 <!DOCTYPE html>
@@ -56,4 +56,76 @@ function filterIntern(information) {
     return Interns;
 }
 
-module.exports = { filterManager, filterEngineers, filterIntern }
+function applyToPage(arr) {
+    if(arr === 'Interns') {
+        for( i=0; i < arr.length; i++) {
+            card = 
+            `
+            <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${arr[i].name}</h5>
+                    <h6 class="card-subtitle>${arr[i].getRole}</h6>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${arr[i].id}</li>
+                    <li class="list-group-item">${arr[i].email}</li>
+                    <li class="list-group-item">${arr[i].school}</li>
+                    </ul>
+                </div>
+            
+            </div>
+    
+            `
+            
+        }
+    }
+    if(arr === 'Manager') {
+        for( i=0; i < arr.length; i++) {
+            card = 
+            `
+            <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${arr[i].name}</h5>
+                    <h6 class="card-subtitle>${arr[i].getRole}</h6>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${arr[i].id}</li>
+                    <li class="list-group-item">${arr[i].email}</li>
+                    <li class="list-group-item">${arr[i].officeNumber}</li>
+                    </ul>
+                </div>
+            
+            </div>
+    
+            `
+            
+        }
+    }
+    if(arr === 'Engineer') {
+        for( i=0; i < arr.length; i++) {
+            card = 
+            `
+            <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
+                <div class="card-body">
+                    <h5 class="card-title">${arr[i].name}</h5>
+                    <h6 class="card-subtitle>${arr[i].getRole}</h6>
+                    </div>
+                    
+                    <ul class="list-group list-group-flush">
+                    <li class="list-group-item">${arr[i].id}</li>
+                    <li class="list-group-item">${arr[i].email}</li>
+                    <li class="list-group-item">${arr[i]}</li>
+                    </ul>
+                </div>
+            
+            </div>
+    
+            `
+            
+        }
+    }
+}
+
+module.exports = { filterManager, filterEngineers, filterIntern, applyToPage }

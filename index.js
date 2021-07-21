@@ -4,7 +4,6 @@ const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
-const Engingeer = require('./lib/Engineer')
 const { filterManager } = require('./generateIndex')
 const { filterEngineers } = require('./generateIndex')
 const { filterIntern } =require('./generateIndex')
@@ -60,12 +59,6 @@ const gitHub = [
         name: 'github'
     }
 ]
-    function writeToFile(fileName, data) {
-        fs.writeFile(fileName, data, (err) =>
-          err ? console.error(err) : console.log('Success!')
-        );
-    
-    }
 const addEmployee = [
     {
         type: 'confirm',
@@ -76,20 +69,21 @@ const addEmployee = [
 ]
 async function runGenerator() {
     let mainQuestions = await inquirer.prompt(questions)
-
+    
     let roleChoice = await decideRole(mainQuestions);
-
+    
     let roleAnswers = await inquirer.prompt(roleChoice)
-    //console.log(roleAnswers)
-
+    console.log(roleAnswers)
+    
     let EmployeeInfo = await {...mainQuestions, ...roleAnswers}
+    console.log(EmployeeInfo)
     let createEmployee = await generateEmployee(EmployeeInfo)
-
+    
     teamMembers.push(createEmployee)
     // console.log(teamMembers)
-
+    
     let addMember = await inquirer.prompt(addEmployee);
-
+    
     generateMore(addMember.confirm)
 }
 
@@ -98,29 +92,32 @@ function decideRole(info) {
     let role = info.role
     switch(role) {
         case 'Manager':
-        return officeNumber;
-
+            return officeNumber;
+            
         case 'Engineer':
-        return gitHub;
-
+            return gitHub;
+                
         case 'Intern':
-        return schoolName;
+            return schoolName;
     }
 }
-            
+
 function generateEmployee(info) {
     let name = info.name;
     let id = info.id;
     let email = info.email;
     let role = info.role;
-
+    
     switch(role) {
         case 'Manager':
-            return new Manager(name, id, email, info.officeNumber);
+        return new Manager(name, id, email, info.officeNumber);
+
         case 'Engineer':
-            return new Engineer(name, id, email, info.gitHub);
+        return new Engineer(name, id, email, info.github);
+
         case 'Intern':
-            return new Intern(name, id, email, info.school);
+        return new Intern(name, id, email, info.school);
+
         default: return 'Error';
     }
 }
@@ -136,7 +133,13 @@ function generateMore(confirm){
         generatePage(teamMembers)
         console.log('You have created your team!')
     }
-                
+    
 }
-
+                        
+function writeToFile(fileName, data) {
+    fs.writeFile(fileName, data, (err) =>
+    err ? console.error(err) : console.log('Success!')
+    );
+    
+}
 runGenerator(); 
