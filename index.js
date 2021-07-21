@@ -83,10 +83,11 @@ async function RunGenerator() {
     let createEmployee = await generateEmployee(EmployeeInfo)
 
     teamMembers.push(createEmployee)
+    console.log(teamMembers)
 
     let addMember = await inquirer.prompt(addEmployee);
 
-    continue(addEmployee.confirm)
+    generateMore(addMember.confirm)
 }
 
 function generateEmployee(info) {
@@ -115,5 +116,15 @@ function decideRole(Employee) {
         case 'Intern':
             return schoolName;
     }
+}
+
+function generateMore(confirm){
+    if (confirm) {
+        return runGenerator
+    }
+    else {
+        console.log('You have created your team!')
+    }
+
 }
 runGenerator();
