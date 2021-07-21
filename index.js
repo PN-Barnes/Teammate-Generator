@@ -4,9 +4,8 @@ const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
-const { filterManager } = require('./generateIndex')
-const { filterEngineers } = require('./generateIndex')
-const { filterIntern } =require('./generateIndex')
+const { filterManager, filterEngineers, filterIntern, applyToPage } = require('./generateIndex')
+
 
 
 const teamMembers = [];
@@ -122,9 +121,13 @@ function generateEmployee(info) {
     }
 }
 function generatePage(data) {
-    console.log(filterManager(data))
-    console.log(filterEngineers(data))
-    console.log(filterIntern(data))
+    // console.log(filterManager(data))
+    // console.log(filterEngineers(data))
+    // console.log(filterIntern(data))
+
+    filterManager(data)
+    filterEngineers(data)
+    filterIntern(data)
 }
 function generateMore(confirm){
     if (confirm) {
@@ -141,5 +144,11 @@ function writeToFile(fileName, data) {
     err ? console.error(err) : console.log('Success!')
     );
     
+}
+
+function appendFile(fileName, data) {
+    fs.appendFile(fileName, data, (err) =>
+    err ? console.error(err) : console.log('Success!')
+    );   
 }
 runGenerator(); 
