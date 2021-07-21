@@ -5,7 +5,10 @@ const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
 const Engingeer = require('./lib/Engineer')
-const { type } = require('os')
+const { filterManager } = require('./generateIndex')
+const { filterEngineers } = require('./generateIndex')
+const { filterIntern } =require('./generateIndex')
+
 
 const teamMembers = [];
 
@@ -77,13 +80,13 @@ async function runGenerator() {
     let roleChoice = await decideRole(mainQuestions);
 
     let roleAnswers = await inquirer.prompt(roleChoice)
-    console.log(roleAnswers)
+    //console.log(roleAnswers)
 
     let EmployeeInfo = await {...mainQuestions, ...roleAnswers}
-    console.log(EmployeeInfo)
     let createEmployee = await generateEmployee(EmployeeInfo)
 
     teamMembers.push(createEmployee)
+    // console.log(teamMembers)
 
     let addMember = await inquirer.prompt(addEmployee);
 
@@ -91,8 +94,8 @@ async function runGenerator() {
 }
 
 
-function decideRole(Employee) {
-    let role = Employee.role
+function decideRole(info) {
+    let role = info.role
     switch(role) {
         case 'Manager':
         return officeNumber;
@@ -106,7 +109,7 @@ function decideRole(Employee) {
 }
             
 function generateEmployee(info) {
-let name = info.name;
+    let name = info.name;
     let id = info.id;
     let email = info.email;
     let role = info.role;
@@ -115,19 +118,25 @@ let name = info.name;
         case 'Manager':
             return new Manager(name, id, email, info.officeNumber);
         case 'Engineer':
-            return new Engingeer(name, id, email, info.gitHub);
+            return new Engineer(name, id, email, info.gitHub);
         case 'Intern':
             return new Intern(name, id, email, info.school);
-        default: return 'Error'
+        default: return 'Error';
     }
+}
+function generatePage(data) {
+    console.log(filterManager(data))
+    console.log(filterEngineers(data))
+    console.log(filterIntern(data))
 }
 function generateMore(confirm){
     if (confirm) {
         return runGenerator()
     }  else {
+        generatePage(teamMembers)
         console.log('You have created your team!')
     }
                 
 }
-            
-runGenerator();
+
+runGenerator(); 

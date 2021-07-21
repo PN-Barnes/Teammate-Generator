@@ -1,9 +1,5 @@
-function generatePage(info){
-for(i=0;i<info.length; i++){
-    let html = [];
-    
-}
-}
+const Engingeer = require("./lib/Engineer");
+const Manager = require("./lib/Manager");
 `
 <!DOCTYPE html>
 <html lang="en">
@@ -45,3 +41,19 @@ for(i=0;i<info.length; i++){
 </body>
 </html>
 `
+
+
+function filterManager(information) {
+    let Managers = information.filter(info => info.getRole === 'Manager')
+    return Managers;
+}
+function filterEngineers(information) {
+    let Engineers = information.filter(info => info.getRole === 'Engineer')
+    return Engineers;
+}
+function filterIntern(information) {
+    let Interns = information.filter(info => info.getRole === 'Intern')
+    return Interns;
+}
+
+module.exports = { filterManager, filterEngineers, filterIntern }
