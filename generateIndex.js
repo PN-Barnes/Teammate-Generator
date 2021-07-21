@@ -2,6 +2,9 @@ const Engineer = require("./lib/Engineer");
 const Manager = require("./lib/Manager");
 const fs = require('fs');
 
+const roleCards = []
+const indexElements = []
+
 function generateBase() {
     return 
     `
@@ -30,23 +33,20 @@ function generateBase() {
 }
 
 
-function filterManager(information) {
+function filterRoles(information) {
     let Managers = information.filter(info => info.getRole === 'Manager')
-    applyToPage(Managers)
-}
-function filterEngineers(information) {
     let Engineers = information.filter(info => info.getRole === 'Engineer')
-    applyToPage(Engineers);
-}
-function filterIntern(information) {
     let Interns = information.filter(info => info.getRole === 'Intern')
-    applyToPage(Interns);
+
+    roleCards.push(Managers, Engineers, Interns)
+    return roleCards
 }
 
+
 function applyToPage(arr) {
-    
-    if(arr === 'Manager') {
-        for( i=0; i < arr.length; i++) {
+    for(const array of arr)
+    if(array === 'Manager') {
+        for( i=0; i < array.length; i++) {
             card = 
             `
             <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
@@ -65,12 +65,12 @@ function applyToPage(arr) {
             </div>
     
             `;
-            appendFile('test.html', card)
+            indexElements.push(card)
             
         }
     }
     if(arr === 'Engineer') {
-        for( i=0; i < arr.length; i++) {
+        for( i=0; i < array.length; i++) {
             card = 
             `
             <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
@@ -89,12 +89,12 @@ function applyToPage(arr) {
             </div>
     
             `;
-            appendFile('test.html', card)
+            indexElements.push(card)
             
         }
     }
     if(arr === 'Interns') {
-        for( i=0; i < arr.length; i++) {
+        for( i=0; i < array.length; i++) {
             card = 
             `
             <div class="card justify-content-center m-3 col-3" style="width: 18rem;">
@@ -113,10 +113,11 @@ function applyToPage(arr) {
             </div>
     
             `;
-            appendFile(test.html, card)
+            indexElements.push(card)
             
         }
     }
+    console.log(indexElements)
 }
 
-module.exports = { filterManager, filterEngineers, filterIntern, applyToPage }
+module.exports = { indexElements,filterRoles, applyToPage }

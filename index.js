@@ -4,7 +4,7 @@ const Employee = require('./lib/Employee')
 const Manager = require('./lib/Manager')
 const Engineer = require('./lib/Engineer')
 const Intern = require('./lib/Intern')
-const { filterManager, filterEngineers, filterIntern, applyToPage } = require('./generateIndex')
+const { indexElements, filterRoles, applyToPage } = require('./generateIndex')
 
 
 
@@ -128,6 +128,7 @@ function generatePage(data) {
     filterManager(data)
     filterEngineers(data)
     filterIntern(data)
+
 }
 function generateMore(confirm){
     if (confirm) {
@@ -145,6 +146,8 @@ function writeToFile(fileName, data) {
     );
     
 }
+
+
 
 function appendFile(fileName, data) {
     fs.appendFile(fileName, data, (err) =>
